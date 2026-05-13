@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DEMM Editorial Type System
+ * Wired via next/font in app/layout.tsx:
+ *   --font-playfair → Playfair Display (display serif for the wordmark)
+ *   --font-inter    → Inter (sans for body, captions, sub-brand labels)
+ */
+:root {
+  --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-sans-stack: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* DEMM Brand Palette — locked May 13, 2026 */
+  --demm-gold: #d4af37;
+  --demm-gold-bright: #f5c518;
+  --demm-os-yellow: #facc15;
+  --demm-marketing-green: #0e5a2a;
+  --demm-booths-blue: #1b3a6b;
+}
+
+html,
+body {
+  font-family: var(--font-sans-stack);
+  background-color: #000;
+}
+
+/* Utility classes the layouts use */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans-stack);
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
