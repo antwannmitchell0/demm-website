@@ -195,7 +195,7 @@ export default function PrivacyPolicy() {
                 Email: <a href="mailto:privacy@demmmarketing.com" className="text-yellow-400 hover:underline">privacy@demmmarketing.com</a>
               </p>
               <p className="text-sm text-gray-400">
-                Phone: <a href="tel:+10000000000" className="text-yellow-400 hover:underline">(XXX) XXX-XXXX</a>
+                Phone: <a href="tel:+18135608191" className="text-yellow-400 hover:underline">(813) 560-8191</a>
               </p>
               <p className="text-sm text-gray-400">Atlanta, GA, United States</p>
             </div>

@@ -453,10 +453,10 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
                 Call or Text
               </p>
               <a
-                href="tel:+10000000000"
+                href="tel:+18135608191"
                 className="text-yellow-400 hover:underline font-semibold"
               >
-                (XXX) XXX-XXXX
+                (813) 560-8191
               </a>
               <p className="text-[10px] text-gray-500 mt-1">
                 Msg &amp; data rates may apply
