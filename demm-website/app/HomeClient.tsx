@@ -481,7 +481,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
                 DEMM LLC
               </p>
               <p className="text-[10px] text-gray-500 mt-1">
-                DBA DEMM Marketing · Atlanta, GA
+                DBA DEMM Marketing · Tampa, FL
               </p>
             </div>
           </div>

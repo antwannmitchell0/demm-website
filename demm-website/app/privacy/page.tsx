@@ -197,7 +197,7 @@ export default function PrivacyPolicy() {
               <p className="text-sm text-gray-400">
                 Phone: <a href="tel:+18135608191" className="text-yellow-400 hover:underline">(813) 560-8191</a>
               </p>
-              <p className="text-sm text-gray-400">Atlanta, GA, United States</p>
+              <p className="text-sm text-gray-400">Tampa, FL, United States</p>
             </div>
           </section>
         </div>
