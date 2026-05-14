@@ -7,9 +7,11 @@
 //  - OpenGraph + Twitter Card metadata so links shared on social/SMS show a
 //    proper DEMM Marketing preview card with the editorial gold-on-black image.
 //  - Theme color and viewport so mobile browsers chrome the address bar correctly.
+//  - LeadConnector chat widget (loads after-interactive — no render blocking).
 
 import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -106,6 +108,14 @@ export default function RootLayout({
     >
       <body className="bg-black text-white antialiased font-sans">
         {children}
+        {/* LeadConnector GHL Chat Widget */}
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id="6a0657d3f7ab416653f2de42"
+          data-source="WEB_USER"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )
