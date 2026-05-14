@@ -4,7 +4,7 @@
 // City/region are passed in as props from the server component so we can
 // personalize headlines on the first render with NO client-side flicker.
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ChevronDown, Check, MapPin } from 'lucide-react'
 
 interface HomeClientProps {
@@ -16,6 +16,8 @@ interface HomeClientProps {
 export default function HomeClient({ city, region, country }: HomeClientProps) {
   const [scrolled, setScrolled] = useState(false)
   const [showAgentMessage, setShowAgentMessage] = useState(false)
+  const [visibleTiers, setVisibleTiers] = useState<Set<string>>(new Set())
+  const tierRefs = useRef<Map<string, HTMLDivElement>>(new Map())
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -26,6 +28,23 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
   useEffect(() => {
     const timer = setTimeout(() => setShowAgentMessage(true), 1000)
     return () => clearTimeout(timer)
+  }, [])
+
+  // Scroll-triggered entrance animations on pricing cards
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = (entry.target as HTMLDivElement).dataset.tierId
+            if (id) setVisibleTiers((prev) => new Set([...prev, id]))
+          }
+        })
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    )
+    tierRefs.current.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   // Build display variants. Always have a sensible fallback so the page works
@@ -96,7 +115,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
       name: 'DEMM OS Growth',
       price: 299,
       period: '/month',
-      trial: '7-Day Free Trial',
+      trial: '',
       description: 'Scale with real intelligence.',
       features: [
         'Everything in Survivor',
@@ -108,7 +127,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
         '24/7 DM coverage',
         'Priority support',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Get Started',
       highlighted: true,
       badge: 'Most Popular',
     },
@@ -117,7 +136,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
       name: 'DEMM OS Empire',
       price: 999,
       period: '/month',
-      trial: '7-Day Free Trial',
+      trial: '',
       description: 'Full operating system. Agents run everything.',
       features: [
         'Everything in Growth',
@@ -129,7 +148,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
         'Multi-location support',
         'White-glove onboarding',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Get Started',
       highlighted: false,
     },
   ]
@@ -148,8 +167,8 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
             <span className="font-display text-3xl md:text-4xl font-bold text-yellow-400 tracking-tight leading-none group-hover:opacity-90 transition">
               DEMM <span className="font-light italic">OS</span>
             </span>
-            <span className="mt-1 h-px w-12 bg-yellow-400/60" aria-hidden="true"></span>
-            <span className="mt-1 font-sans text-[10px] uppercase tracking-[0.25em] text-gray-400">
+            <span className="mt-1 h-px w-12 bg-[#10B981]/80" aria-hidden="true"></span>
+            <span className="mt-1 font-sans text-[10px] uppercase tracking-[0.25em] text-[#10B981]">
               DEMM Marketing
             </span>
           </a>
@@ -316,17 +335,24 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
 
           {/* Tier Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {tiers.map((tier) => (
+            {tiers.map((tier, idx) => (
               <div
                 key={tier.id}
-                className={`relative rounded-lg p-8 transition transform hover:scale-105 ${
+                data-tier-id={tier.id}
+                ref={(el) => { if (el) tierRefs.current.set(tier.id, el) }}
+                style={{ transitionDelay: `${idx * 120}ms` }}
+                className={`relative rounded-lg p-8 transition-all duration-700 hover:scale-105 ${
+                  visibleTiers.has(tier.id)
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-10'
+                } ${
                   tier.highlighted
                     ? 'bg-yellow-400/15 border-2 border-yellow-400 ring-2 ring-yellow-400/30'
                     : 'bg-gray-900/50 border border-gray-700 hover:border-yellow-400/50'
                 }`}
               >
                 {tier.badge && (
-                  <div className="absolute top-4 right-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">
+                  <div className="absolute top-4 right-4 bg-[#0E5A2A] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wide">
                     {tier.badge}
                   </div>
                 )}
@@ -342,7 +368,9 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
                     </span>
                     <span className="text-gray-400">{tier.period}</span>
                   </div>
-                  <p className="text-sm text-green-400 font-semibold">{tier.trial}</p>
+                  {tier.trial && (
+                    <p className="text-sm text-[#10B981] font-semibold">{tier.trial}</p>
+                  )}
                 </div>
 
                 {/* CTA */}
@@ -360,7 +388,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
                 <div className="space-y-4">
                   {tier.features.map((feature, idx) => (
                     <div key={idx} className="flex gap-3">
-                      <Check className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-[#10B981] flex-shrink-0" />
                       <span className="text-sm text-gray-300">{feature}</span>
                     </div>
                   ))}
@@ -389,7 +417,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
               </div>
               <div>
                 <p className="font-bold text-yellow-300 mb-2">Guarantee</p>
-                <p className="text-lg font-bold text-green-400">100% Money Back</p>
+                <p className="text-lg font-bold text-[#10B981]">100% Money Back</p>
               </div>
             </div>
           </div>
