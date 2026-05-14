@@ -108,13 +108,20 @@ export default function RootLayout({
     >
       <body className="bg-black text-white antialiased font-sans">
         {children}
-        {/* LeadConnector GHL Chat Widget */}
+        {/* LeadConnector GHL Chat Widget
+            strategy="beforeInteractive" ensures the script tag is present in
+            the server-rendered HTML so GHL's A2P compliance crawler can detect it.
+            The mount div anchors the bubble per the official GHL embed code. */}
+        <div
+          data-chat-widget=""
+          data-widget-id="6a0657d3f7ab416653f2de42"
+          data-location-id="C9kHiYdwiE9F20AP4Ufm"
+        />
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
           data-widget-id="6a0657d3f7ab416653f2de42"
-          data-source="WEB_USER"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
       </body>
     </html>
