@@ -77,7 +77,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
       name: 'DEMM OS Survivor',
       price: 99,
       period: '/month',
-      trial: '7-Day Free Trial',
+      trial: '30-Day Free Trial',
       description: 'Stop losing leads. Start booking jobs.',
       features: [
         'Missed call text-back (5 sec response)',
@@ -96,7 +96,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
       name: 'DEMM OS Growth',
       price: 299,
       period: '/month',
-      trial: '7-Day Free Trial',
+      trial: '30-Day Free Trial',
       description: 'Scale with real intelligence.',
       features: [
         'Everything in Survivor',
@@ -117,7 +117,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
       name: 'DEMM OS Empire',
       price: 999,
       period: '/month',
-      trial: '7-Day Free Trial',
+      trial: '30-Day Free Trial',
       description: 'Full operating system. Agents run everything.',
       features: [
         'Everything in Growth',
@@ -229,7 +229,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
           {/* CTA Buttons */}
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
             <button className="px-8 py-4 bg-yellow-400 text-black font-bold text-lg rounded-lg hover:bg-yellow-500 transition transform hover:scale-105">
-              Start 7-Day Free Trial
+              Start 30-Day Free Trial
             </button>
             <button className="px-8 py-4 border-2 border-yellow-400 text-yellow-400 font-bold text-lg rounded-lg hover:bg-yellow-400/10 transition">
               See How It Works ↓
@@ -421,7 +421,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
                   How long does setup take?
                 </p>
                 <p className="text-gray-400">
-                  7 days free trial. No setup required. Connect your business info
+                  30 days free trial. No setup required. Connect your business info
                   and start getting results immediately.
                 </p>
               </div>
@@ -442,7 +442,7 @@ export default function HomeClient({ city, region, country }: HomeClientProps) {
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
             <button className="px-10 py-4 bg-yellow-400 text-black font-bold text-lg rounded-lg hover:bg-yellow-500 transition transform hover:scale-105">
-              Start 7-Day Free Trial Now
+              Start 30-Day Free Trial Now
             </button>
           </div>
 
